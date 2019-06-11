@@ -84,6 +84,8 @@ const uglifyJSOptions =
       }
     : {};
 export default {
+  history: 'hash',
+  publicPath: '/admin/',
   // add for transfer to umi
   plugins,
   define: {
@@ -164,7 +166,7 @@ export default {
     },
   },
   manifest: {
-    basePath: '/',
+    basePath: '/admin/',
   },
   uglifyJSOptions,
   chainWebpack: webpackPlugin,
