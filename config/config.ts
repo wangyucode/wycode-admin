@@ -110,6 +110,12 @@ export default {
       routes: [
         {
           path: '/',
+          name: 'dashboard',
+          icon: 'dashboard',
+          component: './dashboard/Dashboard',
+        },
+        {
+          path: '/welcome',
           name: 'welcome',
           icon: 'smile',
           component: './Welcome',
