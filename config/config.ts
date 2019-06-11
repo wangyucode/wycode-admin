@@ -114,6 +114,9 @@ export default {
           icon: 'smile',
           component: './Welcome',
         },
+        {
+          component: './exception/404',
+        },
       ],
     },
   ],
