@@ -1,3 +1,3 @@
 import React from 'react';
 
-export default () => <p>123</p>;
+export default () => <p>789</p>;
