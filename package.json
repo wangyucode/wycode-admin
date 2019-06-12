@@ -108,7 +108,10 @@
     "tslint-eslint-rules": "^5.4.0",
     "tslint-react": "^4.0.0",
     "webpack-theme-color-replacer": "^1.1.5",
-    "sftp-sync-deploy": "^0.7.1"
+    "sftp-sync-deploy": "^0.7.1",
+    "bizcharts": "^3.5.4",
+    "bizcharts-plugin-slider": "^2.1.1-beta.1",
+    "react-fittext": "^1.0.0"
   },
   "optionalDependencies": { "puppeteer": "^1.17.0" },
   "engines": { "node": ">=10.0.0" },
