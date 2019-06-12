@@ -1,4 +1,4 @@
-# Ant Design Pro
+# https://wycode.cn/admin [![Build Status](https://travis-ci.com/wangyucode/wycode-admin.svg?branch=master)](https://travis-ci.com/wangyucode/wycode-admin)
 
 This project is initialized with [Ant Design Pro](https://pro.ant.design). Follow is the quick guide for how to use.
 
