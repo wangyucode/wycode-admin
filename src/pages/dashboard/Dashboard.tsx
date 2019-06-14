@@ -1,41 +1,10 @@
 import React from 'react';
 import { GridContent } from '@ant-design/pro-layout';
 import { Card, Col, Row } from 'antd';
-import MiniArea from '@/components/Charts/MiniArea';
 import Pie from '@/components/Charts/Pie';
+import Visitors from '@/components/dashboard/Visitors';
 
 const data = {
-  visitData: [
-    { x: '2019-06-12', y: 7 },
-    { x: '2019-06-13', y: 5 },
-    {
-      x: '2019-06-14',
-      y: 4,
-    },
-    { x: '2019-06-15', y: 2 },
-    { x: '2019-06-16', y: 4 },
-    { x: '2019-06-17', y: 7 },
-    {
-      x: '2019-06-18',
-      y: 5,
-    },
-    { x: '2019-06-19', y: 6 },
-    { x: '2019-06-20', y: 5 },
-    { x: '2019-06-21', y: 9 },
-    {
-      x: '2019-06-22',
-      y: 6,
-    },
-    { x: '2019-06-23', y: 3 },
-    { x: '2019-06-24', y: 1 },
-    { x: '2019-06-25', y: 5 },
-    {
-      x: '2019-06-26',
-      y: 3,
-    },
-    { x: '2019-06-27', y: 6 },
-    { x: '2019-06-28', y: 5 },
-  ],
   visitData2: [
     { x: '2019-06-12', y: 1 },
     { x: '2019-06-13', y: 6 },
@@ -419,9 +388,7 @@ export default () => (
   <GridContent>
     <Row gutter={24}>
       <Col span={12}>
-        <Card title="访问量" bordered={false}>
-          <MiniArea line data={data.visitData} height={256} />
-        </Card>
+        <Visitors />
       </Col>
       <Col span={8}>
         <Card title="分类" bordered={false}>
