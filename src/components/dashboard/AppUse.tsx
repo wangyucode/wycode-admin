@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Card } from 'antd';
 import { connect } from 'dva';
 import ConnectState, { Dispatch } from '@/models/connect';
-import Pie from '@/components/Charts/Pie';
+import AppUsePie from '@/components/Charts/AppUsePie';
 
 interface AppUseProps {
   dispatch: Dispatch;
@@ -25,7 +25,7 @@ class AppUse extends React.Component<AppUseProps, AppUseState> {
   render() {
     return (
       <Card title="分类" bordered={false}>
-        <Pie hasLegend data={this.props.useData} height={256} lineWidth={4} />
+        <AppUsePie hasLegend data={this.props.useData} height={256} lineWidth={4} inner={0.4} />
       </Card>
     );
   }

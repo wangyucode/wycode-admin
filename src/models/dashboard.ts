@@ -1,6 +1,6 @@
 import { Effect } from 'dva';
 import { Reducer } from 'redux';
-import { queryVisitors } from '@/services/dashboard';
+import { queryAppUse, queryVisitors } from '@/services/dashboard';
 
 export interface VisitorData {
   time: string;
@@ -8,8 +8,14 @@ export interface VisitorData {
   pv: number;
 }
 
+export interface UseData {
+  app: string;
+  use: number;
+}
+
 export interface DashboardState {
   visitorData?: VisitorData[];
+  useData?: UseData[];
 }
 
 export interface DashboardModelType {
@@ -17,9 +23,11 @@ export interface DashboardModelType {
   state: DashboardState;
   effects: {
     fetchVisitors: Effect;
+    fetchAppUse: Effect;
   };
   reducers: {
     saveVisitorData: Reducer<DashboardState>;
+    saveAppUseData: Reducer<DashboardState>;
   };
 }
 
@@ -38,13 +46,26 @@ const DashboardModel: DashboardModelType = {
         payload: response.data,
       });
     },
+    *fetchAppUse(_, { call, put }) {
+      const response = yield call(queryAppUse);
+      yield put({
+        type: 'saveAppUseData',
+        payload: response.data,
+      });
+    },
   },
 
   reducers: {
     saveVisitorData(state, action) {
       return {
         ...state,
-        visitorData: action.payload || {},
+        visitorData: action.payload || [],
+      };
+    },
+    saveAppUseData(state, action) {
+      return {
+        ...state,
+        useData: action.payload || [],
       };
     },
   },
