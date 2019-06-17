@@ -49,7 +49,8 @@ const errorHandler = (error: ResponseError) => {
 const request = extend({
   errorHandler, // 默认错误处理
   //credentials: 'include', // 默认请求是否带上cookie
-  prefix: 'https://wycode.cn/web/api/public/admin',
+  // prefix: 'https://wycode.cn/web/api/public/admin',
+  prefix: 'http://localhost:8080/web/api/public/admin',
 });
 
 export default request;

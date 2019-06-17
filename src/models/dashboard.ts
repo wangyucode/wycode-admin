@@ -2,22 +2,8 @@ import { Effect } from 'dva';
 import { Reducer } from 'redux';
 import { queryVisitors } from '@/services/dashboard';
 
-export interface VisitorData {
-  avatar?: string;
-  name?: string;
-  title?: string;
-  group?: string;
-  signature?: string;
-  geographic?: any;
-  tags?: {
-    key: string;
-    label: string;
-  }[];
-  unreadCount?: number;
-}
-
 export interface DashboardState {
-  visitorData?: VisitorData;
+  visitorData?: { time: string; uv: number; pv: number }[];
 }
 
 export interface DashboardModelType {
@@ -35,7 +21,7 @@ const DashboardModel: DashboardModelType = {
   namespace: 'dashboard',
 
   state: {
-    visitorData: {},
+    visitorData: [],
   },
 
   effects: {
@@ -43,7 +29,7 @@ const DashboardModel: DashboardModelType = {
       const response = yield call(queryVisitors);
       yield put({
         type: 'saveVisitorData',
-        payload: response,
+        payload: response.data,
       });
     },
   },
