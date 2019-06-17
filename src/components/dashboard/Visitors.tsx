@@ -4,10 +4,11 @@ import { connect } from 'dva';
 import ConnectState, { Dispatch } from '@/models/connect';
 import VisitorChart from '@/components/Charts/VisitorChart';
 import Trend from '@/components/Trend';
+import { VisitorData } from '@/models/dashboard';
 
 interface VisitorsProps {
   dispatch: Dispatch;
-  visitData: { time: string; uv: number; pv: number }[];
+  visitData: VisitorData[];
 }
 
 interface VisitorsState {

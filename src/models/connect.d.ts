@@ -5,7 +5,8 @@ import { GlobalModelState } from './global';
 import { UserModelState } from './user';
 import { DefaultSettings as SettingModelState } from '../../config/defaultSettings';
 import { MenuDataItem } from '@ant-design/pro-layout';
-import { DashboardState, VisitorData } from '@/models/dashboard';
+import { DashboardState } from '@/models/dashboard';
+
 export { GlobalModelState, SettingModelState, UserModelState };
 
 export type Effect = (

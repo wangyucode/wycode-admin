@@ -2,8 +2,14 @@ import { Effect } from 'dva';
 import { Reducer } from 'redux';
 import { queryVisitors } from '@/services/dashboard';
 
+export interface VisitorData {
+  time: string;
+  uv: number;
+  pv: number;
+}
+
 export interface DashboardState {
-  visitorData?: { time: string; uv: number; pv: number }[];
+  visitorData?: VisitorData[];
 }
 
 export interface DashboardModelType {
