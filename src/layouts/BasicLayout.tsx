@@ -19,12 +19,14 @@ import {
   Settings,
 } from '@ant-design/pro-layout';
 import Link from 'umi/link';
+
 export interface BasicLayoutProps extends ProLayoutComponentsProps, ConnectProps {
   breadcrumbNameMap: {
     [path: string]: MenuDataItem;
   };
   settings: Settings;
 }
+
 export type BasicLayoutContext = { [K in 'location']: BasicLayoutProps[K] } & {
   breadcrumbNameMap: {
     [path: string]: MenuDataItem;
@@ -44,7 +46,13 @@ const menuDataRender = (menuList: MenuDataItem[]): MenuDataItem[] => {
 const footerRender: BasicLayoutProps['footerRender'] = (_, defaultDom) => {
   return (
     <GlobalFooter
-      links={[{ title: '©wycode.cn 2015-2019 All Right Reserved', href: 'https://wycode.cn' }]}
+      links={[
+        {
+          title: '©wycode.cn 2015-2019 All Right Reserved',
+          href: 'https://wycode.cn',
+          key: 'wycode.cn',
+        },
+      ]}
     />
   );
 };

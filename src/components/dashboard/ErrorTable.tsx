@@ -45,7 +45,11 @@ class ErrorTable extends React.Component<ErrorTableProps, ErrorTableState> {
   render() {
     return (
       <Card title={`错误统计（code = ${this.state.code}）`} bordered={false}>
-        <Table columns={columns} dataSource={this.props.errors} />
+        <Table
+          columns={columns}
+          dataSource={this.props.errors}
+          rowKey={data => `${data.method}:${data.path}`}
+        />
       </Card>
     );
   }
