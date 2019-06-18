@@ -24,14 +24,25 @@
     "test:component": "umi test ./src/components",
     "tslint:fix": "tslint --fix \"src/**/*.ts*\""
   },
-  "husky": { "hooks": { "pre-commit": "npm run lint-staged" } },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint-staged"
+    }
+  },
   "lint-staged": {
     "**/*.less": "stylelint --syntax less",
     "**/*.{js,jsx}": "npm run lint-staged:js",
-    "**/*.{js,jsx,tsx,ts,less,md,json}": ["prettier --write", "git add"],
+    "**/*.{js,jsx,tsx,ts,less,md,json}": [
+      "prettier --write",
+      "git add"
+    ],
     "**/*.{ts,tsx}": "npm run lint-staged:ts"
   },
-  "browserslist": ["> 1%", "last 2 versions", "not ie <= 10"],
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 10"
+  ],
   "dependencies": {
     "@ant-design/pro-layout": "^4.4.2",
     "@antv/data-set": "^0.10.2",
@@ -61,6 +72,7 @@
     "umi-request": "^1.0.7"
   },
   "devDependencies": {
+    "@ant-design/colors": "^3.1.0",
     "@types/classnames": "^2.2.7",
     "@types/history": "^4.7.2",
     "@types/jest": "^24.0.13",
@@ -70,8 +82,9 @@
     "@types/react-document-title": "^2.0.3",
     "@types/react-dom": "^16.8.4",
     "antd-pro-merge-less": "^1.0.0",
-    "@ant-design/colors": "^3.1.0",
     "babel-eslint": "^10.0.1",
+    "bizcharts": "^3.5.4",
+    "bizcharts-plugin-slider": "^2.1.1-beta.1",
     "chalk": "^2.4.2",
     "check-prettier": "^1.0.3",
     "cross-env": "^5.2.0",
@@ -95,6 +108,8 @@
     "mockjs": "^1.0.1-beta3",
     "node-fetch": "^2.6.0",
     "prettier": "^1.17.1",
+    "react-fittext": "^1.0.0",
+    "sftp-sync-deploy": "^0.7.1",
     "slash2": "^2.0.0",
     "stylelint": "^10.0.1",
     "stylelint-config-css-modules": "^1.4.0",
@@ -107,14 +122,14 @@
     "tslint-config-prettier": "^1.18.0",
     "tslint-eslint-rules": "^5.4.0",
     "tslint-react": "^4.0.0",
-    "webpack-theme-color-replacer": "^1.1.5",
-    "sftp-sync-deploy": "^0.7.1",
-    "bizcharts": "^3.5.4",
-    "bizcharts-plugin-slider": "^2.1.1-beta.1",
-    "react-fittext": "^1.0.0"
+    "webpack-theme-color-replacer": "^1.1.5"
   },
-  "optionalDependencies": { "puppeteer": "^1.17.0" },
-  "engines": { "node": ">=10.0.0" },
+  "optionalDependencies": {
+    "puppeteer": "^1.17.0"
+  },
+  "engines": {
+    "node": ">=10.0.0"
+  },
   "checkFiles": [
     "src/**/*.js*",
     "src/**/*.ts*",

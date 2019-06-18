@@ -1,8 +1,11 @@
 import React from 'react';
 import { GridContent } from '@ant-design/pro-layout';
-import { Card, Col, Row } from 'antd';
+import { Col, Row } from 'antd';
 import Visitors from '@/components/dashboard/Visitors';
 import AppUse from '@/components/dashboard/AppUse';
+import Status from '@/components/dashboard/Status';
+import ErrorTable from '@/components/dashboard/ErrorTable';
+import HeatMap from '@/components/dashboard/HeatMap';
 
 export default () => (
   <GridContent>
@@ -10,27 +13,19 @@ export default () => (
       <Col span={12}>
         <Visitors />
       </Col>
-      <Col span={8}>
+      <Col span={9}>
         <AppUse />
       </Col>
-      <Col span={4}>
-        <Card title="状态" bordered={false}>
-          <p>
-            主站：
-            <a href="https://travis-ci.com/wangyucode/wycode.cn">
-              <img src="https://travis-ci.com/wangyucode/wycode.cn.svg?branch=master" alt="主站" />
-            </a>
-          </p>
-          <p>
-            Admin：
-            <a href="https://travis-ci.com/wangyucode/wycode-admin">
-              <img
-                src="https://travis-ci.com/wangyucode/wycode-admin.svg?branch=master"
-                alt="Admin"
-              />
-            </a>
-          </p>
-        </Card>
+      <Col span={3}>
+        <Status />
+      </Col>
+    </Row>
+    <Row gutter={24} style={{ marginTop: 24 }}>
+      <Col span={12}>
+        <ErrorTable />
+      </Col>
+      <Col span={8}>
+        <HeatMap />
       </Col>
     </Row>
   </GridContent>

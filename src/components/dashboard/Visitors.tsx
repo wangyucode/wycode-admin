@@ -60,7 +60,7 @@ class Visitors extends React.Component<VisitorsProps, VisitorsState> {
         <Trend flag={this.state.uvUp ? 'up' : 'down'}>
           <span>昨日PV：{this.state.yesterdayUv}</span>
         </Trend>
-        <VisitorChart data={this.props.visitData} height={348} />
+        <VisitorChart data={this.props.visitData} height={235} />
       </Card>
     );
   }
