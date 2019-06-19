@@ -15,3 +15,7 @@ export async function queryErrorPath(): Promise<any> {
 export async function queryGeos(): Promise<any> {
   return request('/dashboard/geo');
 }
+
+export async function queryBlogAccess(): Promise<any> {
+  return request('/dashboard/blogAccess');
+}

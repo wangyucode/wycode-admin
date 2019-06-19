@@ -1,6 +1,12 @@
 import { Effect } from 'dva';
 import { Reducer } from 'redux';
-import { queryAppUse, queryErrorPath, queryGeos, queryVisitors } from '@/services/dashboard';
+import {
+  queryAppUse,
+  queryBlogAccess,
+  queryErrorPath,
+  queryGeos,
+  queryVisitors,
+} from '@/services/dashboard';
 
 export interface VisitorData {
   time: string;
@@ -25,11 +31,17 @@ export interface GeoData {
   count: number;
 }
 
+export interface BlogAccessData {
+  path: string;
+  count: number;
+}
+
 export interface DashboardState {
   visitorData?: VisitorData[];
   useData?: UseData[];
   errorData?: ErrorData[];
   geoData?: GeoData[];
+  blogAccessData?: BlogAccessData[];
 }
 
 export interface DashboardModelType {
@@ -40,12 +52,14 @@ export interface DashboardModelType {
     fetchAppUse: Effect;
     fetchErrors: Effect;
     fetchGeos: Effect;
+    fetchBlogAccess: Effect;
   };
   reducers: {
     saveVisitorData: Reducer<DashboardState>;
     saveAppUseData: Reducer<DashboardState>;
     saveErrorData: Reducer<DashboardState>;
     saveGeoData: Reducer<DashboardState>;
+    saveBlogAccess: Reducer<DashboardState>;
   };
 }
 
@@ -57,6 +71,7 @@ const DashboardModel: DashboardModelType = {
     useData: [],
     errorData: [],
     geoData: [],
+    blogAccessData: [],
   },
 
   effects: {
@@ -88,6 +103,13 @@ const DashboardModel: DashboardModelType = {
         payload: response.data,
       });
     },
+    *fetchBlogAccess(_, { call, put }) {
+      const response = yield call(queryBlogAccess);
+      yield put({
+        type: 'saveBlogAccess',
+        payload: response.data,
+      });
+    },
   },
 
   reducers: {
@@ -113,6 +135,12 @@ const DashboardModel: DashboardModelType = {
       return {
         ...state,
         geoData: action.payload || [],
+      };
+    },
+    saveBlogAccess(state, action) {
+      return {
+        ...state,
+        blogAccessData: action.payload || [],
       };
     },
   },

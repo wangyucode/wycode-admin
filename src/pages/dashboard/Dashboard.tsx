@@ -5,27 +5,29 @@ import Visitors from '@/components/dashboard/Visitors';
 import AppUse from '@/components/dashboard/AppUse';
 import Status from '@/components/dashboard/Status';
 import ErrorTable from '@/components/dashboard/ErrorTable';
-import HeatMap from '@/components/dashboard/HeatMap';
+import BlogAccess from '@/components/dashboard/BlogAccess';
 
 export default () => (
   <GridContent>
-    <Row gutter={24}>
-      <Col span={12}>
-        <Visitors />
-      </Col>
-      <Col span={9}>
-        <AppUse />
-      </Col>
-      <Col span={3}>
+    <Row>
+      <Col>
         <Status />
       </Col>
     </Row>
     <Row gutter={24} style={{ marginTop: 24 }}>
-      <Col span={12}>
-        <ErrorTable />
+      <Col span={8}>
+        <Visitors />
       </Col>
       <Col span={8}>
-        <HeatMap />
+        <AppUse />
+      </Col>
+      <Col span={8}>
+        <BlogAccess />
+      </Col>
+    </Row>
+    <Row style={{ marginTop: 24 }}>
+      <Col>
+        <ErrorTable />
       </Col>
     </Row>
   </GridContent>

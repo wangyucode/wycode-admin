@@ -24,7 +24,7 @@ class AppUse extends React.Component<AppUseProps, AppUseState> {
 
   render() {
     return (
-      <Card title="分类" bordered={false}>
+      <Card title="应用分类" bordered={false}>
         <AppUsePie hasLegend data={this.props.useData} height={256} lineWidth={4} inner={0.4} />
       </Card>
     );

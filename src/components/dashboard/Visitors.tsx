@@ -58,7 +58,7 @@ class Visitors extends React.Component<VisitorsProps, VisitorsState> {
           <span>昨日PV：{this.state.yesterdayPv}</span>
         </Trend>
         <Trend flag={this.state.uvUp ? 'up' : 'down'}>
-          <span>昨日PV：{this.state.yesterdayUv}</span>
+          <span>昨日UV：{this.state.yesterdayUv}</span>
         </Trend>
         <VisitorChart data={this.props.visitData} height={235} />
       </Card>
