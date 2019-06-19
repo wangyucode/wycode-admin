@@ -75,22 +75,22 @@ const DashboardModel: DashboardModelType = {
   },
 
   effects: {
-    *fetchVisitors(_, { call, put }) {
-      const response = yield call(queryVisitors);
+    *fetchVisitors(action, { call, put }) {
+      const response = yield call(queryVisitors, action.payload);
       yield put({
         type: 'saveVisitorData',
         payload: response.data,
       });
     },
-    *fetchAppUse(_, { call, put }) {
-      const response = yield call(queryAppUse);
+    *fetchAppUse(action, { call, put }) {
+      const response = yield call(queryAppUse, action.payload);
       yield put({
         type: 'saveAppUseData',
         payload: response.data,
       });
     },
-    *fetchErrors(_, { call, put }) {
-      const response = yield call(queryErrorPath);
+    *fetchErrors(action, { call, put }) {
+      const response = yield call(queryErrorPath, action.payload);
       yield put({
         type: 'saveErrorData',
         payload: response.data,
@@ -103,8 +103,8 @@ const DashboardModel: DashboardModelType = {
         payload: response.data,
       });
     },
-    *fetchBlogAccess(_, { call, put }) {
-      const response = yield call(queryBlogAccess);
+    *fetchBlogAccess(action, { call, put }) {
+      const response = yield call(queryBlogAccess, action.payload);
       yield put({
         type: 'saveBlogAccess',
         payload: response.data,

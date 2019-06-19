@@ -14,7 +14,6 @@ rules:
   label-position: true
   member-ordering:
     - true
-    - order: statics-first
   new-parens: true
   no-arg: true
   no-bitwise: true

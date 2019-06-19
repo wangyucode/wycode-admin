@@ -5,60 +5,51 @@ import ConnectState, { Dispatch } from '@/models/connect';
 import VisitorChart from '@/components/Charts/VisitorChart';
 import Trend from '@/components/Trend';
 import { VisitorData } from '@/models/dashboard';
+import { RadioChangeEvent } from 'antd/lib/radio';
+import SelectDay from '@/components/dashboard/SelectDay';
 
 interface VisitorsProps {
   dispatch: Dispatch;
   visitData: VisitorData[];
 }
 
-interface VisitorsState {
-  day: number;
-  yesterdayPv: number;
-  yesterdayUv: number;
-  pvUp: boolean;
-  uvUp: boolean;
-}
+class Visitors extends React.Component<VisitorsProps> {
+  day = 30;
+  yesterdayPv: number = 0;
+  yesterdayUv: number = 0;
+  pvUp: boolean = false;
+  uvUp: boolean = false;
 
-class Visitors extends React.Component<VisitorsProps, VisitorsState> {
-  state: VisitorsState = {
-    day: 30,
-    yesterdayPv: 0,
-    yesterdayUv: 0,
-    pvUp: true,
-    uvUp: true,
+  onDayChange = (e: RadioChangeEvent) => {
+    this.day = e.target.value;
+    this.props.dispatch({ type: 'dashboard/fetchVisitors', payload: this.day });
   };
 
   componentDidMount(): void {
-    this.props.dispatch({ type: 'dashboard/fetchVisitors', payload: this.state.day });
-  }
-
-  componentWillReceiveProps(nextProps: Readonly<VisitorsProps>, nextContext: any): void {
-    const { visitData } = nextProps;
-    const length = visitData.length;
-    if (this.state.day > 7) {
-      if (length >= 2) {
-        this.setState({
-          yesterdayPv: visitData[length - 2].pv,
-          yesterdayUv: visitData[length - 2].uv,
-        });
-      }
-      if (length >= 3) {
-        this.setState({
-          pvUp: visitData[length - 2].pv > visitData[length - 3].pv,
-          uvUp: visitData[length - 2].uv > visitData[length - 3].uv,
-        });
-      }
-    }
+    this.props.dispatch({ type: 'dashboard/fetchVisitors', payload: this.day });
   }
 
   render() {
+    const { visitData } = this.props;
+    const length = visitData.length;
+
+    if (this.day > 7) {
+      if (length >= 2) {
+        this.yesterdayPv = visitData[length - 2].pv;
+        this.yesterdayUv = visitData[length - 2].uv;
+      }
+      if (length >= 3) {
+        this.pvUp = visitData[length - 2].pv > visitData[length - 3].pv;
+        this.uvUp = visitData[length - 2].uv > visitData[length - 3].uv;
+      }
+    }
     return (
-      <Card title="访问量" bordered={false}>
-        <Trend flag={this.state.pvUp ? 'up' : 'down'} style={{ marginRight: 16 }}>
-          <span>昨日PV：{this.state.yesterdayPv}</span>
+      <Card title="访问量" bordered={false} extra={<SelectDay onDayChange={this.onDayChange} />}>
+        <Trend flag={this.pvUp ? 'up' : 'down'} style={{ marginRight: 16 }}>
+          <span>昨日PV：{this.yesterdayPv}</span>
         </Trend>
-        <Trend flag={this.state.uvUp ? 'up' : 'down'}>
-          <span>昨日UV：{this.state.yesterdayUv}</span>
+        <Trend flag={this.uvUp ? 'up' : 'down'}>
+          <span>昨日UV：{this.yesterdayUv}</span>
         </Trend>
         <VisitorChart data={this.props.visitData} height={235} />
       </Card>

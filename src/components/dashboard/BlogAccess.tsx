@@ -4,24 +4,25 @@ import { Card } from 'antd';
 import { connect } from 'dva';
 import { Chart, Geom, Tooltip } from 'bizcharts';
 import DataSet from '@antv/data-set';
+import SelectDay from '@/components/dashboard/SelectDay';
+import { RadioChangeEvent } from 'antd/lib/radio';
 
 interface BlogAccessProps {
   dispatch: Dispatch;
   blogAccessData: { path: string; use: number }[];
 }
 
-interface BlogAccessState {
-  day: number;
-}
-
-class BlogAccess extends React.Component<BlogAccessProps, BlogAccessState> {
-  state: BlogAccessState = {
-    day: 30,
-  };
+class BlogAccess extends React.Component<BlogAccessProps> {
+  day = 30;
 
   componentDidMount(): void {
-    this.props.dispatch({ type: 'dashboard/fetchBlogAccess', payload: this.state.day });
+    this.props.dispatch({ type: 'dashboard/fetchBlogAccess', payload: this.day });
   }
+
+  onDayChange = (e: RadioChangeEvent) => {
+    this.day = e.target.value;
+    this.props.dispatch({ type: 'dashboard/fetchBlogAccess', payload: this.day });
+  };
 
   render() {
     const tree = { name: 'root', children: this.props.blogAccessData };
@@ -60,7 +61,7 @@ class BlogAccess extends React.Component<BlogAccessProps, BlogAccessState> {
     ];
 
     return (
-      <Card title="博客访问" bordered={false}>
+      <Card title="博客访问" bordered={false} extra={<SelectDay onDayChange={this.onDayChange} />}>
         <Chart
           animate={false}
           height={256}
