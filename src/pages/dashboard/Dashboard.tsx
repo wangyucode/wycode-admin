@@ -14,14 +14,14 @@ export default () => (
         <Status />
       </Col>
     </Row>
-    <Row gutter={24} style={{ marginTop: 24 }}>
-      <Col span={8}>
+    <Row gutter={24}>
+      <Col sm={24} md={12} xl={8} style={{ marginTop: 24 }}>
         <Visitors />
       </Col>
-      <Col span={8}>
+      <Col sm={24} md={12} xl={8} style={{ marginTop: 24 }}>
         <AppUse />
       </Col>
-      <Col span={8}>
+      <Col sm={24} md={12} xl={8} style={{ marginTop: 24 }}>
         <BlogAccess />
       </Col>
     </Row>

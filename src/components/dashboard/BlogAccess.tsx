@@ -10,18 +10,21 @@ import { RadioChangeEvent } from 'antd/lib/radio';
 interface BlogAccessProps {
   dispatch: Dispatch;
   blogAccessData: { path: string; use: number }[];
+  loading: boolean;
 }
+
+const ActionType = 'dashboard/fetchBlogAccess';
 
 class BlogAccess extends React.Component<BlogAccessProps> {
   day = 30;
 
   componentDidMount(): void {
-    this.props.dispatch({ type: 'dashboard/fetchBlogAccess', payload: this.day });
+    this.props.dispatch({ type: ActionType, payload: this.day });
   }
 
   onDayChange = (e: RadioChangeEvent) => {
     this.day = e.target.value;
-    this.props.dispatch({ type: 'dashboard/fetchBlogAccess', payload: this.day });
+    this.props.dispatch({ type: ActionType, payload: this.day });
   };
 
   render() {
@@ -61,7 +64,12 @@ class BlogAccess extends React.Component<BlogAccessProps> {
     ];
 
     return (
-      <Card title="博客访问" bordered={false} extra={<SelectDay onDayChange={this.onDayChange} />}>
+      <Card
+        title="博客访问"
+        bordered={false}
+        loading={this.props.loading}
+        extra={<SelectDay onDayChange={this.onDayChange} />}
+      >
         <Chart
           animate={false}
           height={256}
@@ -85,7 +93,10 @@ class BlogAccess extends React.Component<BlogAccessProps> {
 }
 
 function mapStateToProps(state: ConnectState) {
-  return { blogAccessData: state.dashboard.blogAccessData };
+  return {
+    blogAccessData: state.dashboard.blogAccessData,
+    loading: state.loading.effects[ActionType],
+  };
 }
 
 export default connect(mapStateToProps)(BlogAccess);

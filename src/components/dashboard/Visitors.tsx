@@ -11,7 +11,10 @@ import SelectDay from '@/components/dashboard/SelectDay';
 interface VisitorsProps {
   dispatch: Dispatch;
   visitData: VisitorData[];
+  loading: boolean;
 }
+
+const ActionType = 'dashboard/fetchVisitors';
 
 class Visitors extends React.Component<VisitorsProps> {
   day = 30;
@@ -22,11 +25,11 @@ class Visitors extends React.Component<VisitorsProps> {
 
   onDayChange = (e: RadioChangeEvent) => {
     this.day = e.target.value;
-    this.props.dispatch({ type: 'dashboard/fetchVisitors', payload: this.day });
+    this.props.dispatch({ type: ActionType, payload: this.day });
   };
 
   componentDidMount(): void {
-    this.props.dispatch({ type: 'dashboard/fetchVisitors', payload: this.day });
+    this.props.dispatch({ type: ActionType, payload: this.day });
   }
 
   render() {
@@ -44,7 +47,12 @@ class Visitors extends React.Component<VisitorsProps> {
       }
     }
     return (
-      <Card title="访问量" bordered={false} extra={<SelectDay onDayChange={this.onDayChange} />}>
+      <Card
+        title="访问量"
+        bordered={false}
+        extra={<SelectDay onDayChange={this.onDayChange} />}
+        loading={this.props.loading}
+      >
         <Trend flag={this.pvUp ? 'up' : 'down'} style={{ marginRight: 16 }}>
           <span>昨日PV：{this.yesterdayPv}</span>
         </Trend>
@@ -58,7 +66,10 @@ class Visitors extends React.Component<VisitorsProps> {
 }
 
 function mapStateToProps(state: ConnectState) {
-  return { visitData: state.dashboard.visitorData };
+  return {
+    visitData: state.dashboard.visitorData,
+    loading: state.loading.effects[ActionType],
+  };
 }
 
 export default connect(mapStateToProps)(Visitors);
