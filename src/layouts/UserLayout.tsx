@@ -26,6 +26,7 @@ const UserLayout: React.SFC<UserLayoutProps> = props => {
       pathname: '',
     },
   } = props;
+  // @ts-ignore
   const { breadcrumb } = getMenuData(routes, props);
 
   return (

@@ -106,13 +106,19 @@ export default {
       path: '/',
       component: '../layouts/BasicLayout',
       Routes: ['src/pages/Authorized'],
-      authority: ['admin', 'user'],
+      authority: ['admin', 'guest'],
       routes: [
         {
           path: '/',
           name: 'dashboard',
           icon: 'dashboard',
           component: './dashboard/Dashboard',
+        },
+        {
+          path: '/dota',
+          name: 'dota',
+          icon: 'fire',
+          component: './dota/Dota',
         },
         {
           path: '/welcome',
