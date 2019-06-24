@@ -1,4 +1,6 @@
-# https://wycode.cn/admin [![Build Status](https://travis-ci.com/wangyucode/wycode-admin.svg?branch=master)](https://travis-ci.com/wangyucode/wycode-admin)
+# https://wycode.cn/admin
+
+[![Build Status](https://travis-ci.com/wangyucode/wycode-admin.svg?branch=master)](https://travis-ci.com/wangyucode/wycode-admin) [![Dependencies](https://img.shields.io/david/wangyucode/wycode-admin.svg)](https://david-dm.org/wangyucode/wycode-admin) [![Dev Dependencies](https://img.shields.io/david/dev/wangyucode/wycode-admin.svg)](https://david-dm.org/wangyucode/wycode-admin?type=dev)
 
 This project is initialized with [Ant Design Pro](https://pro.ant.design). Follow is the quick guide for how to use.
 
