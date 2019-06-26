@@ -6,6 +6,7 @@ import { UserModelState } from './user';
 import { DefaultSettings as SettingModelState } from '../../config/defaultSettings';
 import { MenuDataItem } from '@ant-design/pro-layout';
 import { DashboardState } from '@/models/dashboard';
+import { DotaState } from '@/models/dota';
 
 export { GlobalModelState, SettingModelState, UserModelState };
 
@@ -42,6 +43,7 @@ export interface ConnectState {
   settings: SettingModelState;
   user: UserModelState;
   dashboard: DashboardState;
+  dota: DotaState;
 }
 
 export interface Route extends MenuDataItem {

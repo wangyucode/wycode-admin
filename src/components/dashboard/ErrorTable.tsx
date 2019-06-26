@@ -36,12 +36,15 @@ class ErrorTable extends React.Component<ErrorTableProps> {
   cardRight = (
     <div>
       <SelectDay onDayChange={this.onDayChange} />
-      <Select defaultValue={500} onChange={this.onCodeChange} style={{ marginLeft: 24 }}>
-        <Select.Option value={500}>code:500</Select.Option>
-        <Select.Option value={400}>code:400</Select.Option>
-        <Select.Option value={404}>code:404</Select.Option>
-        <Select.Option value={403}>code:403</Select.Option>
-      </Select>
+      <div style={{ marginLeft: 24, display: 'inline-block' }}>
+        Code：
+        <Select defaultValue={500} onChange={this.onCodeChange}>
+          <Select.Option value={500}>500</Select.Option>
+          <Select.Option value={400}>400</Select.Option>
+          <Select.Option value={404}>404</Select.Option>
+          <Select.Option value={403}>403</Select.Option>
+        </Select>
+      </div>
     </div>
   );
 
