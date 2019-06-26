@@ -29,9 +29,13 @@ class Version extends React.Component<VersionProps> {
 }
 
 function mapStateToProps(state: ConnectState) {
+  if (!state.dota.version) {
+    return {};
+  }
+  const { version, date } = state.dota.version;
   return {
-    version: state.dota.version.version,
-    date: state.dota.version.date,
+    version,
+    date,
     loading: state.loading.effects[ActionType],
   };
 }

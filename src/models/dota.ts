@@ -1,6 +1,6 @@
 import { Reducer } from 'redux';
 import { Effect } from 'dva';
-import { queryVersion } from '@/services/dota';
+import { queryHeros, queryVersion } from '@/services/dota';
 import Version from '@/components/dota/Version';
 
 interface Version {
@@ -8,8 +8,16 @@ interface Version {
   date: string;
 }
 
+export interface Hero {
+  name: string;
+  imageUrl: string;
+  type: string;
+  icon: string;
+}
+
 export interface DotaState {
-  version: Version;
+  version?: Version;
+  heros?: Hero[];
 }
 
 export interface DotaModelType {
@@ -17,9 +25,11 @@ export interface DotaModelType {
   state: DotaState;
   effects: {
     fetchVersion: Effect;
+    fetchHeros: Effect;
   };
   reducers: {
     saveVersion: Reducer<DotaState>;
+    saveHeros: Reducer<DotaState>;
   };
 }
 
@@ -27,7 +37,8 @@ const DotaModel: DotaModelType = {
   namespace: 'dota',
 
   state: {
-    version: Version,
+    version: { version: '', date: '' },
+    heros: [],
   },
 
   effects: {
@@ -38,13 +49,26 @@ const DotaModel: DotaModelType = {
         payload: response.data,
       });
     },
+    *fetchHeros(action, { call, put }) {
+      const response = yield call(queryHeros);
+      yield put({
+        type: 'saveHeros',
+        payload: response.data,
+      });
+    },
   },
 
   reducers: {
     saveVersion(state, action) {
       return {
         ...state,
-        version: action.payload || '',
+        version: action.payload,
+      };
+    },
+    saveHeros(state, action) {
+      return {
+        ...state,
+        heros: action.payload,
       };
     },
   },
