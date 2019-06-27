@@ -1,7 +1,7 @@
 import { Card } from 'antd';
 import * as React from 'react';
 import { Hero } from '@/models/dota';
-import styles from './heroList.less';
+import styles from './HeroList.less';
 
 export default (props: { title: string; heros: Hero[]; loading: boolean }) => {
   const heroItems = props.heros.map(hero => (
