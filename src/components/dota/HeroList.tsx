@@ -7,7 +7,7 @@ export default (props: { title: string; heros: Hero[]; loading: boolean }) => {
   const heroItems = props.heros.map(hero => (
     <li className={styles.li} key={hero.name}>
       <img src={hero.imageUrl} className={styles.img} alt={hero.name} />
-      <span className={name}>{hero.name}</span>
+      <span className={styles.name}>{hero.name}</span>
     </li>
   ));
   return (

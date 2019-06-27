@@ -4,7 +4,7 @@
  * https://github.com/ant-design/ant-design-pro-layout
  */
 
-import { ConnectState, ConnectProps } from '@/models/connect';
+import { ConnectState, Dispatch } from '@/models/connect';
 import RightContent from '@/components/GlobalHeader/RightContent';
 import { connect } from 'dva';
 import React, { useState } from 'react';
@@ -20,11 +20,12 @@ import {
 } from '@ant-design/pro-layout';
 import Link from 'umi/link';
 
-export interface BasicLayoutProps extends ProLayoutComponentsProps, ConnectProps {
+export interface BasicLayoutProps extends ProLayoutComponentsProps {
   breadcrumbNameMap: {
     [path: string]: MenuDataItem;
   };
   settings: Settings;
+  dispatch: Dispatch;
 }
 
 export type BasicLayoutContext = { [K in 'location']: BasicLayoutProps[K] } & {

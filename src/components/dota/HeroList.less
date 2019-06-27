@@ -4,19 +4,27 @@
   padding: 0;
 
   .li {
+    position: relative;
     display: inline-block;
-    width: 128px;
-    height: 72px;
+    width: 192px;
+    height: 108px;
     margin: 8px;
 
     .img {
-      display: inline-block;
-      margin: 8px;
+      width: 100%;
+      border-radius: 6px;
     }
 
     .name {
-      position: relative;
-      color: #fff;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      padding: 4px 8px;
+      color: #eee;
+      background: linear-gradient(transparent, black);
+      border-bottom-right-radius: 6px;
+      border-bottom-left-radius: 6px;
     }
   }
 }
