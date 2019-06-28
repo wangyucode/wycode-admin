@@ -4,6 +4,7 @@ import slash from 'slash2';
 import { IPlugin, IConfig } from 'umi-types';
 import defaultSettings from './defaultSettings';
 import webpackPlugin from './plugin.config';
+
 const { pwa, primaryColor } = defaultSettings;
 
 // preview.pro.ant.design only do not use in your production ;
@@ -91,6 +92,10 @@ export default {
   define: {
     ANT_DESIGN_PRO_ONLY_DO_NOT_USE_IN_YOUR_PRODUCTION:
       ANT_DESIGN_PRO_ONLY_DO_NOT_USE_IN_YOUR_PRODUCTION || '', // preview.pro.ant.design only do not use in your production ; preview.pro.ant.design 专用环境变量，请不要在你的项目中使用它。
+    SERVICE_URL:
+      NODE_ENV === 'production'
+        ? 'https://wycode.cn/web/api/public'
+        : 'http://localhost:8080/web/api/public',
   },
   block: {
     defaultGitUrl: 'https://github.com/ant-design/pro-blocks',
@@ -99,7 +104,7 @@ export default {
   targets: {
     ie: 11,
   },
-  devtool: ANT_DESIGN_PRO_ONLY_DO_NOT_USE_IN_YOUR_PRODUCTION ? 'source-map' : false,
+  devtool: ANT_DESIGN_PRO_ONLY_DO_NOT_USE_IN_YOUR_PRODUCTION ? 'source-map' : 'eval-source-map',
   // 路由配置
   routes: [
     {
@@ -130,6 +135,9 @@ export default {
           component: './exception/404',
         },
       ],
+    },
+    {
+      component: './exception/404',
     },
   ],
   // Theme for antd
