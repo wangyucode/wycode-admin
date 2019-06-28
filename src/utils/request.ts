@@ -43,14 +43,17 @@ const errorHandler = (error: ResponseError) => {
   });
 };
 
+const prefix =
+  process.env.NODE_ENV === 'production'
+    ? 'https://wycode.cn/web/api/public'
+    : 'http://localhost:8080/web/api/public';
 /**
  * 配置request请求时的默认参数
  */
 const request = extend({
   errorHandler, // 默认错误处理
   //credentials: 'include', // 默认请求是否带上cookie
-  // prefix: 'https://wycode.cn/web/api/public',
-  prefix: 'http://localhost:8080/web/api/public',
+  prefix,
 });
 
 export default request;
