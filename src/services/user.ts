@@ -1,13 +1,17 @@
-import request from '@/utils/request';
+import { User } from '@/models/user';
 
-export async function query(): Promise<any> {
-  return request('/api/users');
+const USER_KEY = 'wy-admin-user';
+
+export async function saveCurrent(user: User): Promise<any> {
+  const userString = JSON.stringify(user);
+  return await localStorage.setItem(USER_KEY, userString);
 }
 
-export async function queryCurrent(): Promise<any> {
-  return request('/api/currentUser');
-}
-
-export async function queryNotices(): Promise<any> {
-  return request('/api/notices');
+export async function getCurrent(): Promise<User | null> {
+  const userString = await localStorage.getItem(USER_KEY);
+  if (userString) {
+    return JSON.parse(userString);
+  } else {
+    return null;
+  }
 }
