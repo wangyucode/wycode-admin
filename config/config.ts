@@ -4,6 +4,7 @@ import slash from 'slash2';
 import { IPlugin, IConfig } from 'umi-types';
 import defaultSettings from './defaultSettings';
 import webpackPlugin from './plugin.config';
+import pageRouters from './router.config';
 
 const { pwa, primaryColor } = defaultSettings;
 
@@ -106,40 +107,7 @@ export default {
   },
   devtool: ANT_DESIGN_PRO_ONLY_DO_NOT_USE_IN_YOUR_PRODUCTION ? 'source-map' : 'eval-source-map',
   // 路由配置
-  routes: [
-    {
-      path: '/',
-      component: '../layouts/BasicLayout',
-      Routes: ['src/pages/Authorized'],
-      authority: ['admin', 'guest'],
-      routes: [
-        {
-          path: '/',
-          name: 'dashboard',
-          icon: 'dashboard',
-          component: './dashboard/Dashboard',
-        },
-        {
-          path: '/dota',
-          name: 'dota',
-          icon: 'fire',
-          component: './dota/Dota',
-        },
-        {
-          path: '/welcome',
-          name: 'welcome',
-          icon: 'smile',
-          component: './Welcome',
-        },
-        {
-          component: './exception/404',
-        },
-      ],
-    },
-    {
-      component: './exception/404',
-    },
-  ],
+  routes: pageRouters,
   // Theme for antd
   // https://ant.design/docs/react/customize-theme-cn
   theme: {

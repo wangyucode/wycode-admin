@@ -1,4 +1,3 @@
-import { queryNotices } from '@/services/user';
 import { Subscription } from 'dva';
 import { Reducer } from 'redux';
 import { Effect } from './connect';
@@ -7,6 +6,7 @@ import { NoticeIconData } from '@/components/NoticeIcon';
 export interface NoticeItem extends NoticeIconData {
   id: string;
   type: string;
+
   [key: string]: any;
 }
 
@@ -19,7 +19,6 @@ export interface GlobalModelType {
   namespace: 'global';
   state: GlobalModelState;
   effects: {
-    fetchNotices: Effect;
     clearNotices: Effect;
     changeNoticeReadState: Effect;
   };
@@ -40,23 +39,6 @@ const GlobalModel: GlobalModelType = {
   },
 
   effects: {
-    *fetchNotices(_, { call, put, select }) {
-      const data = yield call(queryNotices);
-      yield put({
-        type: 'saveNotices',
-        payload: data,
-      });
-      const unreadCount: number = yield select(
-        state => state.global.notices.filter(item => !item.read).length,
-      );
-      yield put({
-        type: 'user/changeNotifyCount',
-        payload: {
-          totalCount: data.length,
-          unreadCount,
-        },
-      });
-    },
     *clearNotices({ payload }, { put, select }) {
       yield put({
         type: 'saveClearedNotices',
