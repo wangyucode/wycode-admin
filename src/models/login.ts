@@ -1,9 +1,8 @@
 import { routerRedux } from 'dva/router';
 import { getPageQuery, setAuthority } from '@/utils/utils';
-import { fakeAccountLogin, getFakeCaptcha } from '@/services/login';
-import { Reducer } from 'redux';
+import { fakeAccountLogin } from '@/services/login';
+import { AnyAction, Reducer } from 'redux';
 import { EffectsCommandMap } from 'dva';
-import { AnyAction } from 'redux';
 
 export interface IStateType {
   status?: 'ok' | 'error';
