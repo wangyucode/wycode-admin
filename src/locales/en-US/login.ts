@@ -1,7 +1,7 @@
 export default {
   'login.login.userName': 'userName',
   'login.login.password': 'password',
-  'login.login.message-invalid-credentials': 'Invalid username or password（admin/ant.design）',
+  'login.login.message-invalid-credentials': 'Invalid username or password',
   'login.login.tab-login-credentials': 'Credentials',
   'login.login.remember-me': 'Remember me',
   'login.login.login': 'Login',

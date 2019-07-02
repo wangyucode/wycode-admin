@@ -21,7 +21,6 @@ export interface ModelType {
   state: IStateType;
   effects: {
     login: Effect;
-    getCaptcha: Effect;
   };
   reducers: {
     changeLoginStatus: Reducer<IStateType>;
@@ -61,10 +60,6 @@ const Model: ModelType = {
         }
         yield put(routerRedux.replace(redirect || '/'));
       }
-    },
-
-    *getCaptcha({ payload }, { call }) {
-      yield call(getFakeCaptcha, payload);
     },
   },
 
