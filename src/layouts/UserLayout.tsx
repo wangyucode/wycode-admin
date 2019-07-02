@@ -7,7 +7,8 @@ import { formatMessage } from 'umi-plugin-react/locale';
 import Link from 'umi/link';
 import logo from '../assets/logo.svg';
 import styles from './UserLayout.less';
-import { MenuDataItem, getPageTitle, getMenuData, DefaultFooter } from '@ant-design/pro-layout';
+import { getMenuData, getPageTitle, MenuDataItem } from '@ant-design/pro-layout';
+import GlobalFooter from '@ant-design/pro-layout/lib/GlobalFooter';
 
 export interface UserLayoutProps extends ConnectProps {
   breadcrumbNameMap: { [path: string]: MenuDataItem };
@@ -50,11 +51,23 @@ const UserLayout: React.SFC<UserLayoutProps> = props => {
                 <span className={styles.title}>Ant Design</span>
               </Link>
             </div>
-            <div className={styles.desc}>Ant Design 是西湖区最具影响力的 Web 设计规范</div>
+            <div className={styles.desc}>
+              Ant Design 是西湖区最具影响力的 Web 设计规范
+              <br />
+              wycode.cn 是雁塔区最叼的个人网站
+            </div>
           </div>
           {children}
         </div>
-        <DefaultFooter />
+        <GlobalFooter
+          links={[
+            {
+              title: '©wycode.cn 2015-2019 All Right Reserved',
+              href: 'https://wycode.cn',
+              key: 'wycode.cn',
+            },
+          ]}
+        />
       </div>
     </DocumentTitle>
   );
