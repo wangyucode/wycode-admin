@@ -1,28 +1,26 @@
 import { routerRedux } from 'dva/router';
 import { getPageQuery, setAuthority } from '@/utils/utils';
-import { fakeAccountLogin } from '@/services/login';
+import { login } from '@/services/login';
 import { AnyAction, Reducer } from 'redux';
 import { EffectsCommandMap } from 'dva';
 
-export interface IStateType {
+export interface LoginStateType {
   status?: 'ok' | 'error';
-  type?: string;
-  currentAuthority?: 'user' | 'guest' | 'admin';
 }
 
 export type Effect = (
   action: AnyAction,
-  effects: EffectsCommandMap & { select: <T>(func: (state: IStateType) => T) => T },
+  effects: EffectsCommandMap & { select: <T>(func: (state: LoginStateType) => T) => T },
 ) => void;
 
 export interface ModelType {
   namespace: string;
-  state: IStateType;
+  state: LoginStateType;
   effects: {
     login: Effect;
   };
   reducers: {
-    changeLoginStatus: Reducer<IStateType>;
+    changeLoginStatus: Reducer<LoginStateType>;
   };
 }
 
@@ -35,7 +33,7 @@ const Model: ModelType = {
 
   effects: {
     *login({ payload }, { call, put }) {
-      const response = yield call(fakeAccountLogin, payload);
+      const response = yield call(login, payload);
       yield put({
         type: 'changeLoginStatus',
         payload: response,

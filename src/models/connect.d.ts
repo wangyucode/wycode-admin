@@ -7,6 +7,7 @@ import { DefaultSettings as SettingModelState } from '../../config/defaultSettin
 import { MenuDataItem } from '@ant-design/pro-layout';
 import { DashboardState } from '@/models/dashboard';
 import { DotaState } from '@/models/dota';
+import { LoginStateType } from '@/models/login';
 
 export { GlobalModelState, SettingModelState, UserModelState };
 
@@ -34,6 +35,7 @@ export interface Loading {
     menu?: boolean;
     setting?: boolean;
     user?: boolean;
+    login?: boolean;
   };
 }
 
@@ -44,6 +46,7 @@ export interface ConnectState {
   user: UserModelState;
   dashboard: DashboardState;
   dota: DotaState;
+  login: LoginStateType;
 }
 
 export interface Route extends MenuDataItem {
