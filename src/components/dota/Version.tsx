@@ -9,7 +9,7 @@ interface VersionProps {
   date: string;
   dispatch: Dispatch;
   loading: boolean;
-  saving: boolean;
+  posting: boolean;
 }
 
 interface VersionState {
@@ -18,7 +18,7 @@ interface VersionState {
 }
 
 const FetchActionType = 'dota/fetchVersion';
-const SaveActionType = 'dota/SaveVersion';
+const PostActionType = 'dota/postVersion';
 
 class Version extends React.Component<VersionProps, VersionState> {
   state = {
@@ -36,7 +36,7 @@ class Version extends React.Component<VersionProps, VersionState> {
   }
 
   render() {
-    const { date, loading, saving } = this.props;
+    const { date, loading, posting } = this.props;
     const { version, editing } = this.state;
     const buttonText = editing ? '保存' : '编辑';
     return (
@@ -44,7 +44,7 @@ class Version extends React.Component<VersionProps, VersionState> {
         数据版本：
         <Input className={styles.version} value={version} disabled={!editing} />
         <span className={styles.date}>更新日期：{date}</span>
-        <Button className={styles.edit} type="primary" loading={saving} onClick={this.editClicked}>
+        <Button className={styles.edit} type="primary" loading={posting} onClick={this.editClicked}>
           {buttonText}
         </Button>
       </Card>
@@ -60,7 +60,7 @@ class Version extends React.Component<VersionProps, VersionState> {
   };
 
   save = () => {
-    this.props.dispatch({ type: SaveActionType });
+    this.props.dispatch({ type: PostActionType });
   };
 }
 
@@ -73,7 +73,7 @@ function mapStateToProps(state: ConnectState) {
     version,
     date,
     loading: state.loading.effects[FetchActionType],
-    saving: state.loading.effects[SaveActionType],
+    posting: state.loading.effects[PostActionType],
   };
 }
 

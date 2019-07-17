@@ -17,7 +17,7 @@ export interface Hero {
 
 export interface DotaState {
   version?: Version;
-  heros?: Hero[];
+  heroes?: Hero[];
 }
 
 export interface DotaModelType {
@@ -25,11 +25,11 @@ export interface DotaModelType {
   state: DotaState;
   effects: {
     fetchVersion: Effect;
-    fetchHeros: Effect;
+    fetchHeroes: Effect;
   };
   reducers: {
     saveVersion: Reducer<DotaState>;
-    saveHeros: Reducer<DotaState>;
+    saveHeroes: Reducer<DotaState>;
   };
 }
 
@@ -38,7 +38,7 @@ const DotaModel: DotaModelType = {
 
   state: {
     version: { version: '', date: '' },
-    heros: [],
+    heroes: [],
   },
 
   effects: {
@@ -49,10 +49,10 @@ const DotaModel: DotaModelType = {
         payload: response.data,
       });
     },
-    *fetchHeros(action, { call, put }) {
+    *fetchHeroes(action, { call, put }) {
       const response = yield call(queryHeros);
       yield put({
-        type: 'saveHeros',
+        type: 'saveHeroes',
         payload: response.data,
       });
     },
@@ -65,10 +65,10 @@ const DotaModel: DotaModelType = {
         version: action.payload,
       };
     },
-    saveHeros(state, action) {
+    saveHeroes(state, action) {
       return {
         ...state,
-        heros: action.payload,
+        heroes: action.payload,
       };
     },
   },

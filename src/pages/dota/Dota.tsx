@@ -9,13 +9,13 @@ import { Hero } from '@/models/dota';
 
 interface DotaProps {
   loading: boolean;
-  strengthHeros: Hero[];
-  intelliHeros: Hero[];
-  agileHeros: Hero[];
+  strengthHeroes: Hero[];
+  intelligentHeroes: Hero[];
+  agileHeroes: Hero[];
   dispatch: Dispatch;
 }
 
-const ActionType = 'dota/fetchHeros';
+const ActionType = 'dota/fetchHeroes';
 
 class Dota extends React.Component<DotaProps> {
   componentDidMount(): void {
@@ -29,13 +29,17 @@ class Dota extends React.Component<DotaProps> {
           <Version />
         </Row>
         <Row style={{ marginTop: 24 }}>
-          <HeroList title="力量型" heros={this.props.strengthHeros} loading={this.props.loading} />
+          <HeroList title="力量型" heros={this.props.strengthHeroes} loading={this.props.loading} />
         </Row>
         <Row style={{ marginTop: 24 }}>
-          <HeroList title="智力型" heros={this.props.intelliHeros} loading={this.props.loading} />
+          <HeroList
+            title="智力型"
+            heros={this.props.intelligentHeroes}
+            loading={this.props.loading}
+          />
         </Row>
         <Row style={{ marginTop: 24 }}>
-          <HeroList title="敏捷型" heros={this.props.agileHeros} loading={this.props.loading} />
+          <HeroList title="敏捷型" heros={this.props.agileHeroes} loading={this.props.loading} />
         </Row>
       </GridContent>
     );
@@ -43,26 +47,26 @@ class Dota extends React.Component<DotaProps> {
 }
 
 function mapStateToProps(state: ConnectState) {
-  if (!state.dota.heros) {
+  if (!state.dota.heroes) {
     return {};
   }
-  const strengthHeros: Hero[] = [];
-  const intelliHeros: Hero[] = [];
-  const agileHeros: Hero[] = [];
-  state.dota.heros.map(hero => {
+  const strengthHeroes: Hero[] = [];
+  const intelligentHeroes: Hero[] = [];
+  const agileHeroes: Hero[] = [];
+  state.dota.heroes.map(hero => {
     if (hero.type === '力量') {
-      strengthHeros.push(hero);
+      strengthHeroes.push(hero);
     } else if (hero.type === '智力') {
-      intelliHeros.push(hero);
+      intelligentHeroes.push(hero);
     } else if (hero.type === '敏捷') {
-      agileHeros.push(hero);
+      agileHeroes.push(hero);
     }
   });
   return {
     loading: state.loading.effects[ActionType],
-    strengthHeros,
-    intelliHeros,
-    agileHeros,
+    strengthHeroes,
+    intelligentHeroes,
+    agileHeroes,
   };
 }
 
