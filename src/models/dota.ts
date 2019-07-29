@@ -1,6 +1,6 @@
 import { Reducer } from 'redux';
 import { Effect } from 'dva';
-import { queryHeros, queryVersion } from '@/services/dota';
+import { postVersion, queryHeros, queryVersion } from '@/services/dota';
 import Version from '@/components/dota/Version';
 
 interface Version {
@@ -26,6 +26,7 @@ export interface DotaModelType {
   effects: {
     fetchVersion: Effect;
     fetchHeroes: Effect;
+    postVersion: Effect;
   };
   reducers: {
     saveVersion: Reducer<DotaState>;
@@ -53,6 +54,13 @@ const DotaModel: DotaModelType = {
       const response = yield call(queryHeros);
       yield put({
         type: 'saveHeroes',
+        payload: response.data,
+      });
+    },
+    *postVersion(action, { call, put }) {
+      const response = yield call(postVersion(action.payload));
+      yield put({
+        type: 'saveVersion',
         payload: response.data,
       });
     },

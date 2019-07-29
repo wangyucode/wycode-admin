@@ -60,7 +60,7 @@ class Version extends React.Component<VersionProps, VersionState> {
   };
 
   save = () => {
-    this.props.dispatch({ type: PostActionType });
+    this.props.dispatch({ type: PostActionType, payload: this.state.version });
   };
 }
 
