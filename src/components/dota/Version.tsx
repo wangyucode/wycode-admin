@@ -32,7 +32,7 @@ class Version extends React.Component<VersionProps, VersionState> {
 
   componentWillReceiveProps(nextProps: Readonly<VersionProps>, nextContext: any): void {
     const { version } = nextProps;
-    this.setState({ version });
+    this.setState({ version, editing: false });
   }
 
   render() {

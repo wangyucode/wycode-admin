@@ -58,11 +58,13 @@ const DotaModel: DotaModelType = {
       });
     },
     *postVersion(action, { call, put }) {
-      const response = yield call(postVersion(action.payload));
-      yield put({
-        type: 'saveVersion',
-        payload: response.data,
-      });
+      const response = yield call(() => postVersion(action.payload));
+      if (response) {
+        yield put({
+          type: 'saveVersion',
+          payload: response.data,
+        });
+      }
     },
   },
 
