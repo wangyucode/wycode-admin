@@ -1,9 +1,6 @@
 export default {
   'login.login.userName': 'userName',
   'login.login.password': 'password',
-  'login.login.message-invalid-credentials': 'Invalid username or password',
-  'login.login.tab-login-credentials': 'Credentials',
-  'login.login.remember-me': 'Remember me',
   'login.login.login': 'Login',
   'login.register.register': 'Register',
   'login.register.get-verification-code': 'Get code',

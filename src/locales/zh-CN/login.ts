@@ -1,9 +1,6 @@
 export default {
   'login.login.userName': '用户名',
   'login.login.password': '密码',
-  'login.login.message-invalid-credentials': '账户或密码错误',
-  'login.login.tab-login-credentials': '账户密码登录',
-  'login.login.remember-me': '记住密码',
   'login.login.login': '登录',
   'login.register.register': '注册',
   'login.register.get-verification-code': '获取验证码',

@@ -1,11 +1,11 @@
 import { routerRedux } from 'dva/router';
-import { getPageQuery, setAuthority } from '@/utils/utils';
+import { getPageQuery } from '@/utils/utils';
 import { login } from '@/services/login';
 import { AnyAction, Reducer } from 'redux';
 import { EffectsCommandMap } from 'dva';
 
 export interface LoginStateType {
-  status?: 'ok' | 'error';
+  error?: string;
 }
 
 export type Effect = (
@@ -28,7 +28,7 @@ const Model: ModelType = {
   namespace: 'login',
 
   state: {
-    status: undefined,
+    error: undefined,
   },
 
   effects: {
@@ -39,7 +39,7 @@ const Model: ModelType = {
         payload: response,
       });
       // Login successfully
-      if (response.status === 'ok') {
+      if (response.success) {
         const urlParams = new URL(window.location.href);
         const params = getPageQuery();
         let { redirect } = params as { redirect: string };
@@ -62,11 +62,10 @@ const Model: ModelType = {
 
   reducers: {
     changeLoginStatus(state, { payload }) {
-      setAuthority(payload.currentAuthority);
+      //payload.success && setAuthority(payload.currentAuthority);
       return {
         ...state,
-        status: payload.status,
-        type: payload.type,
+        error: payload.error,
       };
     },
   },
