@@ -36,7 +36,8 @@ axiosInstance.interceptors.request.use(config => {
       if (token) {
         config.headers = { ...config.headers, 'X-Auth-Token': token };
       } else {
-        router.push('/user/login');
+        const redirect = location.href;
+        router.push(`/user/login?redirect=${redirect}`);
         return Promise.reject(config);
       }
     }

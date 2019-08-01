@@ -5,7 +5,7 @@ export function getToken(): string | null {
   return token || localStorage.getItem(WY_TOKEN_KEY);
 }
 
-export function setToken(t: string) {
+export function setToken(t: string | null) {
   token = t;
-  localStorage.setItem(WY_TOKEN_KEY, t);
+  t ? localStorage.setItem(WY_TOKEN_KEY, t) : localStorage.removeItem(WY_TOKEN_KEY);
 }

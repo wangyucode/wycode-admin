@@ -1,16 +1,14 @@
-import { getCurrent, saveCurrent } from '@/services/user';
-import { Effect } from 'dva';
 import { Reducer } from 'redux';
 
 export interface User {
   avatar: string;
-  name: string;
+  username: string;
   type: string;
 }
 
-export const GuestUser = {
+export const guestUser: User = {
   avatar: 'https://wycode.cn/upload/image/account.png',
-  name: '匿名用户',
+  username: '匿名用户',
   type: 'guest',
 };
 
@@ -21,10 +19,6 @@ export interface UserModelState {
 export interface UserModelType {
   namespace: 'user';
   state: UserModelState;
-  effects: {
-    fetchCurrent: Effect;
-    saveCurrent: Effect;
-  };
   reducers: {
     storeCurrentUser: Reducer<UserModelState>;
   };
@@ -34,33 +28,13 @@ const UserModel: UserModelType = {
   namespace: 'user',
 
   state: {
-    currentUser: GuestUser,
+    currentUser: guestUser,
   },
-
-  effects: {
-    *saveCurrent(action, { call, put }) {
-      const response = yield call(saveCurrent(action.payload));
-      yield put({
-        type: 'storeCurrentUser',
-        payload: response,
-      });
-    },
-    *fetchCurrent(_, { call, put }) {
-      const response = yield call(getCurrent);
-      if (response) {
-        yield put({
-          type: 'storeCurrentUser',
-          payload: response,
-        });
-      }
-    },
-  },
-
   reducers: {
     storeCurrentUser(state, action) {
       return {
         ...state,
-        currentUser: action.payload || {},
+        currentUser: action.payload || guestUser,
       };
     },
   },

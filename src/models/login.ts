@@ -3,6 +3,8 @@ import { getPageQuery } from '@/utils/utils';
 import { login } from '@/services/login';
 import { AnyAction, Reducer } from 'redux';
 import { EffectsCommandMap } from 'dva';
+import { setToken } from '@/utils/token';
+import { guestUser } from '@/models/user';
 
 export interface LoginStateType {
   error?: string;
@@ -18,6 +20,7 @@ export interface ModelType {
   state: LoginStateType;
   effects: {
     login: Effect;
+    logout: Effect;
   };
   reducers: {
     changeLoginStatus: Reducer<LoginStateType>;
@@ -36,10 +39,13 @@ const Model: ModelType = {
       const response = yield call(login, payload);
       yield put({
         type: 'changeLoginStatus',
-        payload: response,
+        payload: response.error,
       });
       // Login successfully
       if (response.success) {
+        yield call(setToken, response.data.token);
+        yield put({ type: 'user/storeCurrentUser', payload: response.data });
+
         const urlParams = new URL(window.location.href);
         const params = getPageQuery();
         let { redirect } = params as { redirect: string };
@@ -58,14 +64,18 @@ const Model: ModelType = {
         yield put(routerRedux.replace(redirect || '/'));
       }
     },
+
+    *logout(_, { call, put }) {
+      yield call(setToken, null);
+      yield put({ type: 'user/storeCurrentUser', payload: guestUser });
+    },
   },
 
   reducers: {
     changeLoginStatus(state, { payload }) {
-      //payload.success && setAuthority(payload.currentAuthority);
       return {
         ...state,
-        error: payload.error,
+        error: payload,
       };
     },
   },

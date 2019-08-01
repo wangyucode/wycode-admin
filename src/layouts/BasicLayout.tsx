@@ -44,7 +44,7 @@ const menuDataRender = (menuList: MenuDataItem[]): MenuDataItem[] => {
   });
 };
 
-const footerRender: BasicLayoutProps['footerRender'] = (_, defaultDom) => {
+const footerRender: BasicLayoutProps['footerRender'] = () => {
   return (
     <GlobalFooter
       links={[
@@ -66,9 +66,6 @@ const BasicLayout: React.FC<BasicLayoutProps> = props => {
 
   useState(() => {
     if (dispatch) {
-      dispatch({
-        type: 'user/fetchCurrent',
-      });
       dispatch({
         type: 'settings/getSetting',
       });

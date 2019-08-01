@@ -5,6 +5,7 @@ export default [
     component: '../layouts/UserLayout',
     routes: [
       { path: '/user/login', component: './user/Login' },
+      { path: '/user/logout', component: './user/Login' },
       {
         component: './exception/404',
       },

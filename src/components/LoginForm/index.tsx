@@ -20,7 +20,6 @@ class NormalLoginForm extends React.Component<LoginProps> {
     if (e) e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        console.log('Received values of form: ', values);
         this.props.onValues(values);
       }
     });
@@ -50,7 +49,6 @@ class NormalLoginForm extends React.Component<LoginProps> {
               size="large"
               prefix={<Icon type="lock" className={styles.prefixIcon} />}
               type="password"
-              onPressEnter={() => this.handleSubmit()}
               placeholder={formatMessage({ id: 'login.login.password' })}
             />,
           )}
