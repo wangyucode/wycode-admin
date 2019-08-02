@@ -27,6 +27,7 @@ export interface DotaModelType {
     fetchVersion: Effect;
     fetchHeroes: Effect;
     postVersion: Effect;
+    fetchHeroDetail: Effect;
   };
   reducers: {
     saveVersion: Reducer<DotaState>;
@@ -65,6 +66,9 @@ const DotaModel: DotaModelType = {
           payload: response.data,
         });
       }
+    },
+    *fetchHeroDetail(action, { call, put }) {
+      yield 1 + 1;
     },
   },
 

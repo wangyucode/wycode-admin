@@ -1,9 +1,4 @@
 export default [
-  // 404
-  {
-    path: '/404',
-    component: './exception/404',
-  },
   // user
   {
     path: '/user',
@@ -11,7 +6,6 @@ export default [
     routes: [
       { path: '/user/login', component: './user/Login' },
       { path: '/user/logout', component: './user/Login' },
-      { redirect: '/404' },
     ],
   },
   // app
@@ -25,6 +19,7 @@ export default [
         path: '/',
         name: 'dashboard',
         icon: 'dashboard',
+        exact: true,
         component: './dashboard/Dashboard',
       },
       {
@@ -32,20 +27,23 @@ export default [
         name: 'dota',
         icon: 'fire',
         routes: [
-          { path: '/dota', redirect: '/dota/hero' },
+          { path: '/dota', redirect: '/dota/hero', exact: true },
           {
-            path: 'hero',
+            path: '/dota/hero',
             name: 'hero',
             icon: 'team',
-            component: './dota/Dota',
+            routes: [
+              { path: '/dota/hero', component: './dota/Dota', exact: true },
+              { path: '/dota/hero/:name', component: './dota/hero/HeroDetail' },
+              { component: './exception/404' },
+            ],
           },
           {
             path: 'item',
             name: 'item',
             icon: 'gift',
-            component: './dota/Dota',
           },
-          { redirect: '/404' },
+          { component: './exception/404' },
         ],
       },
       {
@@ -54,7 +52,7 @@ export default [
         icon: 'smile',
         component: './Welcome',
       },
-      { redirect: '/404' },
+      { component: './exception/404' },
     ],
   },
 ];
