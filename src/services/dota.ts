@@ -12,3 +12,7 @@ export async function postVersion(version: string): Promise<any> {
 export async function queryHeros(): Promise<any> {
   return request('/dota/heroes');
 }
+
+export async function getHeroDetail(name: string): Promise<any> {
+  return request('/dota/heroDetail', { params: { heroName: name } });
+}

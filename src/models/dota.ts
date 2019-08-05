@@ -1,6 +1,6 @@
 import { Reducer } from 'redux';
 import { Effect } from 'dva';
-import { postVersion, queryHeros, queryVersion } from '@/services/dota';
+import { getHeroDetail, postVersion, queryHeros, queryVersion } from '@/services/dota';
 import Version from '@/components/dota/Version';
 
 interface Version {
@@ -15,9 +15,14 @@ export interface Hero {
   icon: string;
 }
 
+export interface HeroDetail {
+  otherName: string;
+}
+
 export interface DotaState {
   version?: Version;
   heroes?: Hero[];
+  currentHero?: HeroDetail;
 }
 
 export interface DotaModelType {
@@ -32,6 +37,7 @@ export interface DotaModelType {
   reducers: {
     saveVersion: Reducer<DotaState>;
     saveHeroes: Reducer<DotaState>;
+    saveHeroDetail: Reducer<DotaState>;
   };
 }
 
@@ -68,7 +74,13 @@ const DotaModel: DotaModelType = {
       }
     },
     *fetchHeroDetail(action, { call, put }) {
-      yield 1 + 1;
+      const response = yield call(() => getHeroDetail(action.payload));
+      if (response) {
+        yield put({
+          type: 'saveHeroDetail',
+          payload: response.data,
+        });
+      }
     },
   },
 
@@ -83,6 +95,12 @@ const DotaModel: DotaModelType = {
       return {
         ...state,
         heroes: action.payload,
+      };
+    },
+    saveHeroDetail(state, action) {
+      return {
+        ...state,
+        currentHero: action.payload,
       };
     },
   },
