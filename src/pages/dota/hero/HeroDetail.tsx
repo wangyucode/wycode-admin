@@ -2,31 +2,48 @@ import React from 'react';
 import ConnectState, { Dispatch } from '@/models/connect';
 import { connect } from 'dva';
 import { match } from 'react-router';
-import { Col, Row, Typography } from 'antd';
-import { GridContent } from '@ant-design/pro-layout';
+import { Card, Form, Input } from 'antd';
 import { DotaState, Hero } from '@/models/dota';
+import { FetchList } from '@/pages/dota/Dota';
 
-const { Title } = Typography;
-
-interface DotaDetailProps {
+interface HeroDetailProps {
   loading: boolean;
-  dispatch: Dispatch;
   match: match & { params: { name: string } };
   location: Location & { state?: Hero };
   dota: DotaState;
+  fetchList: Function;
+  fetchDetail: (name: string) => void;
 }
 
-interface DotaDetailState {
+interface HeroDetailState {
   clickedHero?: Hero;
 }
 
-const ActionType = 'dota/fetchHeroDetail';
+const FetchDetail = 'dota/fetchHeroDetail';
 
-@connect(({ dota, loading }: ConnectState) => ({
-  loading: loading.effects.fetchHeroDetail,
-  dota: dota,
-}))
-class DotaDetail extends React.Component<DotaDetailProps, DotaDetailState> {
+const formItemLayout = {
+  labelCol: { span: 4 },
+  wrapperCol: { span: 20 },
+};
+
+function mapStateToProps({ dota }: ConnectState) {
+  return { dota: dota };
+}
+
+function mapDispatchToProps(dispatch: Dispatch) {
+  return {
+    fetchList: () => dispatch({ type: FetchList }),
+    fetchDetail: (name: string) => dispatch({ type: FetchDetail, payload: name }),
+  };
+}
+
+@connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)
+class HeroDetail extends React.Component<HeroDetailProps, HeroDetailState> {
+  state: HeroDetailState = {};
+
   componentDidMount(): void {
     const { location, dota } = this.props;
     const name = this.props.match.params.name;
@@ -34,33 +51,51 @@ class DotaDetail extends React.Component<DotaDetailProps, DotaDetailState> {
     if (!clickedHero && dota.heroes) {
       clickedHero = dota.heroes.find(item => item.name === name);
     }
-    this.setState({ clickedHero: clickedHero });
-    this.props.dispatch({ type: ActionType, payload: name });
+    if (clickedHero) {
+      this.setState({ clickedHero: clickedHero });
+    } else {
+      this.props.fetchList();
+    }
+
+    this.props.fetchDetail(name);
+  }
+
+  componentWillReceiveProps(nextProps: Readonly<HeroDetailProps>, nextContext: any): void {
+    if (!this.state.clickedHero && nextProps.dota.heroes) {
+      const clickedHero = nextProps.dota.heroes.find(
+        item => item.name === this.props.match.params.name,
+      );
+      this.setState({ clickedHero: clickedHero });
+    }
   }
 
   render() {
-    if (!this.state || !this.state.clickedHero || !this.props.dota.currentHero) {
-      return false;
+    const { dota } = this.props;
+    if (dota.currentHero && this.state.clickedHero) {
+      const { otherName } = dota.currentHero;
+      const { imageUrl, icon, name } = this.state.clickedHero;
+      return (
+        <Card>
+          <Form layout="horizontal">
+            <Form.Item label={<img src={imageUrl} alt={'image'} />} {...formItemLayout}>
+              <Input value={imageUrl} />
+            </Form.Item>
+            <Form.Item label={<img src={icon} alt={'icon'} />} {...formItemLayout}>
+              <Input value={icon} />
+            </Form.Item>
+            <Form.Item label={'名字'} {...formItemLayout}>
+              <Input value={name} />
+            </Form.Item>
+            <Form.Item label={'其它名称'} {...formItemLayout}>
+              <Input value={otherName} />
+            </Form.Item>
+          </Form>
+        </Card>
+      );
+    } else {
+      return <Card loading />;
     }
-    const { otherName } = this.props.dota.currentHero;
-    const { imageUrl, icon, name } = this.state.clickedHero;
-    return (
-      <GridContent>
-        <Row gutter={24}>
-          <Col>
-            <img src={imageUrl} />
-          </Col>
-          <Col>
-            <Title>
-              <img src={icon} />
-              {name}
-            </Title>
-            <Title level={2}>{otherName}</Title>
-          </Col>
-        </Row>
-      </GridContent>
-    );
   }
 }
 
-export default DotaDetail;
+export default HeroDetail;

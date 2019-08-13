@@ -15,11 +15,11 @@ interface DotaProps {
   dispatch: Dispatch;
 }
 
-const ActionType = 'dota/fetchHeroes';
+export const FetchList = 'dota/fetchHeroes';
 
 class Dota extends React.Component<DotaProps> {
   componentDidMount(): void {
-    this.props.dispatch({ type: ActionType });
+    this.props.dispatch({ type: FetchList });
   }
 
   render() {
@@ -63,7 +63,7 @@ function mapStateToProps(state: ConnectState) {
     }
   });
   return {
-    loading: state.loading.effects[ActionType],
+    loading: state.loading.effects[FetchList],
     strengthHeroes,
     intelligentHeroes,
     agileHeroes,
